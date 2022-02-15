@@ -3,15 +3,15 @@ import GameCell from "./GameCell";
 import { useState, useEffect } from "react";
 
 const Game = () => {
-
   const [currentPlayer, setCurrentPlayer] = useState(`player1`);
   const [player1, setPlayer1] = useState([]);
   const [player2, setPlayer2] = useState([]);
+  const [spacesLeft, setSpacesLeft] = useState<number[]>([]);
   const [winner, setWinner] = useState<number[]>([]);
 
   useEffect(() => {
     checkForWinners();
-  }, [currentPlayer])
+  }, [currentPlayer]);
 
   const winningCombo = [
     [0, 1, 2],
@@ -24,23 +24,31 @@ const Game = () => {
     [6, 7, 8],
   ];
 
+  const checkForWinners = () => {
+    winningCombo.map((combo) => {
+      const currPlayer: number[] =
+        currentPlayer === `player1` ? player2 : player1;
+      const num1 = currPlayer.includes(combo[0]);
+      const num2 = currPlayer.includes(combo[1]);
+      const num3 = currPlayer.includes(combo[2]);
 
-const checkForWinners = () => {
-  winningCombo.map((combo) => {
-    const currPlayer : number[] = currentPlayer === `player1` ? player2 : player1;
-    const num1 = currPlayer.includes(combo[0]);
-    const num2 = currPlayer.includes(combo[1]);
-    const num3 = currPlayer.includes(combo[2]);
-
-    if(num1 && num2 && num3) {
-      setWinner(combo);
-    } else {
-      return;
-    }
-  })
-}
+      if (num1 && num2 && num3) {
+        setWinner(combo);
+      } else {
+        return;
+      }
+    });
+  };
 
   const boardPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+  const remainingPositions = (index: number) => {
+    const botMoves = boardPositions.slice();
+    botMoves.splice(index, 1);
+    setSpacesLeft(botMoves);
+  }
+
+  console.log(spacesLeft);
 
   const renderBoardCells = () => {
     return boardPositions.map((position, i) => {
@@ -54,12 +62,13 @@ const checkForWinners = () => {
           position={position}
           setPlayer1={setPlayer1}
           setPlayer2={setPlayer2}
+          remainingPositions={remainingPositions}
+          index={i}
           winner={winner}
         />
       );
     });
   };
-
 
   return (
     <BoardHolder>

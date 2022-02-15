@@ -8,6 +8,8 @@ interface GameCellProps {
   position: number;
   currentPlayer: string;
   winner: number[];
+  index: number;
+  remainingPositions: Function;
   setPlayer1: Function;
   setPlayer2: Function;
   setCurrentPlayer: Function;
@@ -21,6 +23,8 @@ const GameCell: FC<GameCellProps> = ({
   setCurrentPlayer,
   currentPlayer,
   position,
+  remainingPositions,
+  index,
   winner,
 }) => {
   const [filled, setFilled] = useState(false);
@@ -28,6 +32,7 @@ const GameCell: FC<GameCellProps> = ({
   const spaceTaken = () => {
     if (currentPlayer === `player1`) {
       setPlayer1([...player1, position]);
+      remainingPositions(index);
       setFilled(true);
       setCurrentPlayer(`player2`);
     } else {
