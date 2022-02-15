@@ -20,8 +20,13 @@ export const Board = styled.div`
     padding: 10px;
 `;
 
-export const Cell = styled.div`
-    background: red;
+interface CellProps {
+    winner: number[];
+    position: number;
+}
+
+export const Cell = styled.div<CellProps>`
+    background: ${(props) => props.winner.includes(props.position) ? `white` : `red`};
     display: flex;
     justify-content: center;
     align-items: center;

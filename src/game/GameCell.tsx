@@ -7,6 +7,7 @@ interface GameCellProps {
   player2: number[];
   position: number;
   currentPlayer: string;
+  winner: number[];
   setPlayer1: Function;
   setPlayer2: Function;
   setCurrentPlayer: Function;
@@ -20,6 +21,7 @@ const GameCell: FC<GameCellProps> = ({
   setCurrentPlayer,
   currentPlayer,
   position,
+  winner,
 }) => {
   const [filled, setFilled] = useState(false);
 
@@ -48,7 +50,7 @@ const GameCell: FC<GameCellProps> = ({
 
 
   return (
-    <Cell onClick={spaceTaken}>
+    <Cell onClick={spaceTaken} winner={winner} position={position}>
       <SpaceTakenIndicator filled={filled}>
         {isChosen()}
       </SpaceTakenIndicator>
