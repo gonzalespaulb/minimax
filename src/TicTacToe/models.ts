@@ -7,8 +7,5 @@ export interface BoardCellProps {
   index: number;
   position: IBoardPositions;
   boardPositions: IBoardPositions[];
-  currentPlayer: string;
-  setCurrentPlayer: Function;
   setBoardPositions: Function;
-  playerToggle: Function;
 }

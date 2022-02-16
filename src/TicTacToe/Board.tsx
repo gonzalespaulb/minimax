@@ -41,11 +41,6 @@ const Board = () => {
     setBoardPositions(gameBoard);
   };
 
-
-  const playerToggle = () => {
-    setCurrentPlayer(currentPlayer === players.USER ? players.BOT : players.USER);
-  }
-
   const renderBoardCells = () => {
     return boardPositions.map((position, i) => {
       return (
@@ -54,9 +49,6 @@ const Board = () => {
           position={position}
           boardPositions={boardPositions}
           setBoardPositions={setBoardPositions}
-          currentPlayer={currentPlayer}
-          setCurrentPlayer={setCurrentPlayer}
-          playerToggle={playerToggle}
           index={i}
         />
       );

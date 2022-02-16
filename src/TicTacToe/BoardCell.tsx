@@ -8,12 +8,12 @@ const BoardCell: FC<BoardCellProps> = ({
   boardPositions,
   setBoardPositions,
   position,
-  currentPlayer,
-  setCurrentPlayer,
-  playerToggle,
 }) => {
   const updatePositions = (player: string, chosenPosition: number) => {
+    // Creates a shallow copy of the existing board
     const newBoard = boardPositions.slice();
+
+    // Changes null into whichever player
     const newOwner = newBoard[chosenPosition];
     newOwner.ownedBy = player;
 
@@ -21,6 +21,8 @@ const BoardCell: FC<BoardCellProps> = ({
   };
 
   const botMove = () => {
+
+    // Only gives the bot items in array that are null
     let movesLeft: IBoardPositions[] = [];
     boardPositions.map((position) => {
       if (position.ownedBy) {
@@ -30,23 +32,28 @@ const BoardCell: FC<BoardCellProps> = ({
       }
     });
 
+    // Randomizes the moves bot can make based on the unfilled spaces
     const botDesiredMove = Math.floor(Math.random() * movesLeft.length);
     updatePositions(players.BOT, movesLeft[botDesiredMove].boardPosition);
   };
 
-
-
-  const fillSpace = () => {
-
+  const userMove = () => {
     updatePositions(players.USER, index);
-
 
     setTimeout(() => {
       botMove();
     }, 1000);
   };
 
-  return <Cell onClick={fillSpace} filled={position.ownedBy}></Cell>;
+  const whosCell = () => {
+      if(position.ownedBy) {
+          return position.ownedBy === players.USER ? `orange` : `white`;
+      } else {
+          return `red`
+      }
+  }
+
+  return <Cell onClick={userMove} filled={whosCell()}></Cell>;
 };
 
 export default BoardCell;

@@ -21,11 +21,12 @@ export const BoardGame = styled.div`
 `;
 
 interface CellProps {
-    filled: null | string;
+    filled: string;
 }
 
 export const Cell = styled.div<CellProps>`
-    background: ${(props) => props.filled ? `white` : `red`};
+
+    background: ${(props) => props.filled};
     display: flex;
     justify-content: center;
     align-items: center;
