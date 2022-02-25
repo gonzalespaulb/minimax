@@ -8,6 +8,8 @@ const BoardCell: FC<BoardCellProps> = ({
   boardPositions,
   setBoardPositions,
   position,
+  checkForWinners,
+  setCurrentPlayer,
 }) => {
   const updatePositions = (player: string, chosenPosition: number) => {
     // Creates a shallow copy of the existing board
@@ -18,6 +20,7 @@ const BoardCell: FC<BoardCellProps> = ({
     newOwner.ownedBy = player;
 
     setBoardPositions(newBoard);
+    checkForWinners();
   };
 
   const botMove = () => {
@@ -35,11 +38,12 @@ const BoardCell: FC<BoardCellProps> = ({
     // Randomizes the moves bot can make based on the unfilled spaces
     const botDesiredMove = Math.floor(Math.random() * movesLeft.length);
     updatePositions(players.BOT, movesLeft[botDesiredMove].boardPosition);
+    setCurrentPlayer(players.BOT);
   };
 
   const userMove = () => {
     updatePositions(players.USER, index);
-
+    setCurrentPlayer(players.USER);
     setTimeout(() => {
       botMove();
     }, 1000);

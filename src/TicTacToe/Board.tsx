@@ -9,13 +9,13 @@ interface IBoardPositions {
 }
 
 const Board = () => {
+  const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
+  const [currentPlayer, setCurrentPlayer] = useState(``);
+
   useEffect(() => {
     initializeBoard();
     setCurrentPlayer(players.USER);
   }, []);
-
-  const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
-  const [currentPlayer, setCurrentPlayer] = useState(``);
 
   const winningCombos = [
     [0, 1, 2],
@@ -27,6 +27,31 @@ const Board = () => {
     [3, 4, 5],
     [6, 7, 8],
   ];
+
+  const checkForWinners = () => {
+    for (const combo of winningCombos) {
+      let matchCount = 0;
+
+      let currentOwnedBy = boardPositions[combo[0]].ownedBy;
+
+      for (const position of combo) {
+        if (boardPositions[position].ownedBy) {
+          if (currentOwnedBy === boardPositions[position].ownedBy) {
+            matchCount++;
+          } else {
+            break;
+          }
+        } else {
+          break;
+        }
+
+        if (matchCount === 3) {
+          console.log(`${currentOwnedBy} is the winner!!`);
+        }
+      }
+    }
+  };
+
 
   const initializeBoard = () => {
     let gameBoard: IBoardPositions[] = [];
@@ -41,6 +66,7 @@ const Board = () => {
     setBoardPositions(gameBoard);
   };
 
+
   const renderBoardCells = () => {
     return boardPositions.map((position, i) => {
       return (
@@ -49,6 +75,8 @@ const Board = () => {
           position={position}
           boardPositions={boardPositions}
           setBoardPositions={setBoardPositions}
+          checkForWinners={checkForWinners}
+          setCurrentPlayer={setCurrentPlayer}
           index={i}
         />
       );
