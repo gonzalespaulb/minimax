@@ -48,9 +48,31 @@ const Board = () => {
         if (matchCount === 3) {
           console.log(`${currentOwnedBy} is the winner!!`);
         }
+
+        if (matchCount < 3 && checkForTie()) {
+          console.log(`its a tie`);
+        }
       }
     }
   };
+
+
+  const checkForTie = () => {
+
+    let matchCount = 0;
+
+    for (const position of boardPositions) {
+      if(position.ownedBy) {
+        matchCount++
+      } else {
+        return false;
+      }
+    }
+
+    if (matchCount === 9) {
+      return true;
+    }
+  }
 
 
   const initializeBoard = () => {
