@@ -10,12 +10,15 @@ const BoardCell: FC<BoardCellProps> = ({
   position,
   checkForWinners,
   setCurrentPlayer,
+  setDisableMove,
+  disableMove, 
 }) => {
   const updatePositions = (player: string, chosenPosition: number) => {
-    // Creates a shallow copy of the existing board
+    // NOTE -- CREATES A SHALLOW COPY OF  THE EXISTING BOARD
     const newBoard = boardPositions.slice();
 
-    // Changes null into whichever player
+
+    // NOTE -- CHANGES NULL INTO WHICHEVER PLAYER
     const newOwner = newBoard[chosenPosition];
     newOwner.ownedBy = player;
 
@@ -24,8 +27,8 @@ const BoardCell: FC<BoardCellProps> = ({
   };
 
   const botMove = () => {
-
-    // Only gives the bot items in array that are null
+    setDisableMove(false);
+    // NOTE -- ONLY GIVES THE BOT ITEMS IN ARRAY THAT ARE NULL
     let movesLeft: IBoardPositions[] = [];
     boardPositions.map((position) => {
       if (position.ownedBy) {
@@ -35,7 +38,7 @@ const BoardCell: FC<BoardCellProps> = ({
       }
     });
 
-    // Randomizes the moves bot can make based on the unfilled spaces
+    // NOTE -- RANDOMIZES THE MOVES BOT CAN MAKE BASED ON THE UNFILLED SPACES
     const botDesiredMove = Math.floor(Math.random() * movesLeft.length);
     updatePositions(players.BOT, movesLeft[botDesiredMove].boardPosition);
     setCurrentPlayer(players.BOT);
@@ -44,6 +47,7 @@ const BoardCell: FC<BoardCellProps> = ({
   const userMove = () => {
     updatePositions(players.USER, index);
     setCurrentPlayer(players.USER);
+    setDisableMove(true);
     setTimeout(() => {
       botMove();
     }, 1000);
@@ -57,7 +61,8 @@ const BoardCell: FC<BoardCellProps> = ({
       }
   }
 
-  return <Cell onClick={userMove} filled={whosCell()}></Cell>;
+  // BUG -- OVERRIDES THE PREVIOUS USER'S MOVE WHEN CELL IS CLICKED TWICE. TIE ON THE LAST SQUARE ENABLES THIS TOO
+  return <Cell onClick={userMove} filled={whosCell()} disableMove={disableMove}></Cell>;
 };
 
 export default BoardCell;

@@ -8,14 +8,18 @@ interface IBoardPositions {
   ownedBy: null | string;
 }
 
+// TODO -- STOP GAME LOGIC
+
 const Board = () => {
   const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState(``);
+  const [resetGame, setResetGame] = useState<boolean>(false);
+  const [disableMove, setDisableMove] = useState<boolean>(false);
 
   useEffect(() => {
     initializeBoard();
     setCurrentPlayer(players.USER);
-  }, []);
+  }, [resetGame]);
 
   const winningCombos = [
     [0, 1, 2],
@@ -47,33 +51,35 @@ const Board = () => {
 
         if (matchCount === 3) {
           console.log(`${currentOwnedBy} is the winner!!`);
-        }
-
-        if (matchCount < 3 && checkForTie()) {
-          console.log(`its a tie`);
+          setDisableMove(true);
+          return;
         }
       }
+    }
+
+    if (checkForTie()) {
+      console.log(`its a tie`);
+      setDisableMove(true);
     }
   };
 
-
   const checkForTie = () => {
 
-    let matchCount = 0;
+    const owners = boardPositions.map((position) => {
+      return position.ownedBy;
+    });
 
-    for (const position of boardPositions) {
-      if(position.ownedBy) {
-        matchCount++
-      } else {
-        return false;
-      }
-    }
+    const allPositionsOwned = owners.every((position) => {
+      return position !== null;
+    });
 
-    if (matchCount === 9) {
-      return true;
-    }
-  }
+    return allPositionsOwned;
+  };
 
+  const resetBoard = () => {
+    setDisableMove(false);
+    setResetGame(!resetGame);
+  };
 
   const initializeBoard = () => {
     let gameBoard: IBoardPositions[] = [];
@@ -88,7 +94,6 @@ const Board = () => {
     setBoardPositions(gameBoard);
   };
 
-
   const renderBoardCells = () => {
     return boardPositions.map((position, i) => {
       return (
@@ -99,6 +104,8 @@ const Board = () => {
           setBoardPositions={setBoardPositions}
           checkForWinners={checkForWinners}
           setCurrentPlayer={setCurrentPlayer}
+          setDisableMove={setDisableMove}
+          disableMove={disableMove}
           index={i}
         />
       );
@@ -108,6 +115,7 @@ const Board = () => {
   return (
     <BoardHolder>
       <BoardGame>{renderBoardCells()}</BoardGame>
+      <button onClick={resetBoard}>Reset Game</button>
     </BoardHolder>
   );
 };

@@ -22,6 +22,7 @@ export const BoardGame = styled.div`
 
 interface CellProps {
     filled: string;
+    disableMove: boolean;
 }
 
 export const Cell = styled.div<CellProps>`
@@ -30,4 +31,5 @@ export const Cell = styled.div<CellProps>`
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: ${(props) => props.disableMove ? `none` : `auto`};
 `;
