@@ -11,19 +11,23 @@ const BoardCell: FC<BoardCellProps> = ({
   checkForWinners,
   setCurrentPlayer,
   setDisableMove,
-  disableMove, 
+  disableMove,
 }) => {
   const updatePositions = (player: string, chosenPosition: number) => {
     // NOTE -- CREATES A SHALLOW COPY OF  THE EXISTING BOARD
     const newBoard = boardPositions.slice();
 
-
     // NOTE -- CHANGES NULL INTO WHICHEVER PLAYER
     const newOwner = newBoard[chosenPosition];
-    newOwner.ownedBy = player;
 
-    setBoardPositions(newBoard);
-    checkForWinners();
+    if (newOwner.ownedBy) {
+      return false;
+    } else {
+      newOwner.ownedBy = player;
+      setBoardPositions(newBoard);
+      checkForWinners();
+      return true;
+    }
   };
 
   const botMove = () => {
@@ -45,24 +49,34 @@ const BoardCell: FC<BoardCellProps> = ({
   };
 
   const userMove = () => {
-    updatePositions(players.USER, index);
-    setCurrentPlayer(players.USER);
-    setDisableMove(true);
-    setTimeout(() => {
-      botMove();
-    }, 1000);
+    if(updatePositions(players.USER, index)){
+      setCurrentPlayer(players.USER);
+      setDisableMove(true);
+      setTimeout(() => {
+        botMove();
+      }, 1000);
+    }
+    else {
+      return;
+    }
   };
 
   const whosCell = () => {
-      if(position.ownedBy) {
-          return position.ownedBy === players.USER ? `orange` : `white`;
-      } else {
-          return `red`
-      }
-  }
+    if (position.ownedBy) {
+      return position.ownedBy === players.USER ? `orange` : `white`;
+    } else {
+      return `red`;
+    }
+  };
 
   // BUG -- OVERRIDES THE PREVIOUS USER'S MOVE WHEN CELL IS CLICKED TWICE. TIE ON THE LAST SQUARE ENABLES THIS TOO
-  return <Cell onClick={userMove} filled={whosCell()} disableMove={disableMove}></Cell>;
+  return (
+    <Cell
+      onClick={userMove}
+      filled={whosCell()}
+      disableMove={disableMove}
+    ></Cell>
+  );
 };
 
 export default BoardCell;
