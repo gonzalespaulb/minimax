@@ -25,6 +25,7 @@ const BoardCell: FC<BoardCellProps> = ({
       // NOTE -- CHANGES NULL INTO WHICHEVER PLAYER
       newOwner.ownedBy = player;
       setBoardPositions(newBoard);
+      checkForWinners();
       return true;
     }
   };
@@ -49,7 +50,7 @@ const BoardCell: FC<BoardCellProps> = ({
         updatePositions(players.BOT, movesLeft[botDesiredMove].boardPosition);
         setCurrentPlayer(players.USER);
       }
-    }
+    } 
   };
 
   const userMove = () => {
