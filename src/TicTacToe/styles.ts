@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const move = keyframes`
     0% {
@@ -12,36 +12,137 @@ const move = keyframes`
     }
 `;
 
+const showSymbol = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
+const rotateRight = keyframes`
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(45deg);
+    }
+`;
+
+const rotateLeft = keyframes`
+    from {
+        transform: rotateZ(0deg);
+    }
+
+    to {
+        transform: rotateZ(-45deg);
+    }
+`;
+
+const circleGrow = keyframes`
+from {
+    transform: scale(0);
+}
+
+to {
+    transform: scale(1);
+}
+`;
+
 export const BoardHolder = styled.div`
-    height: 100vh;
-    width: 100vw;
-    background: green;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BoardGame = styled.div`
-    height: 600px;
-    width: 600px;
-    background: blue;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    padding: 10px;
+  height: 600px;
+  width: 600px;
+  background: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
 `;
 
 interface CellProps {
-    filled: string;
-    disableMove: boolean;
+  disableMove: boolean;
 }
 
 export const Cell = styled.div<CellProps>`
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: ${(props) => (props.disableMove ? `none` : `auto`)};
+`;
 
-    background: ${(props) => props.filled};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: ${(props) => props.disableMove ? `none` : `auto`};
+interface OwnerSymbolProps {
+  isOwned: null | string;
+}
+
+export const OwnerSymbol = styled.div<OwnerSymbolProps>`
+  height: 50px;
+  width: 50px;
+  background: black;
+  opacity: 0;
+  animation-name: ${(props) => (props.isOwned ? showSymbol : ``)};
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`;
+
+export const BoardCircle = styled.div`
+  height: 45px;
+  width: 45px;
+  background: white;
+  border-radius: 50%;
+  transform: scale(0);
+  animation-name: ${circleGrow};
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`;
+
+export const BoardCross = styled.div`
+  height: 50px;
+  width: 50px;
+  position: relative;
+`;
+
+export const CrossTop = styled.div`
+  height: 6px;
+  border-radius: 10px;
+  width: 100%;
+  position: absolute;
+  background: white;
+  top: 0;
+  left: 0;
+  margin-top: 50%;
+  transform: rotateZ(0deg);
+  animation-name: ${rotateLeft};
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`;
+
+export const CrossBottom = styled.div`
+  height: 6px;
+  border-radius: 10px;
+  width: 100%;
+  position: absolute;
+  background: white;
+  top: 0;
+  left: 0;
+  margin-top: 50%;
+  transform: rotateZ(0deg);
+  animation-name: ${rotateRight};
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 `;
