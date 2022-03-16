@@ -14,6 +14,7 @@ const winningCombos = [
   [3, 4, 5],
   [6, 7, 8],
 ];
+
 const Board = () => {
   const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState(``);
@@ -24,6 +25,7 @@ const Board = () => {
     initializeBoard();
     setCurrentPlayer(players.USER);
   }, [resetGame]);
+// CODEBLOCK ---------------------------------------------------------------------------------- WIN CHECKER
 
   const checkForWinners = () => {
     for (const combo of winningCombos) {
@@ -64,6 +66,8 @@ const Board = () => {
     return false;
   };
 
+// CODEBLOCK ---------------------------------------------------------------------------------- TIE CHECKER
+
   const checkForTie = () => {
 
     // NOTE -- ARRAY OF ALL POSITIONS
@@ -79,10 +83,15 @@ const Board = () => {
     return allPositionsOwned;
   };
 
+// CODEBLOCK ---------------------------------------------------------------------------------- BOARD RESET
+
   const resetBoard = () => {
     setDisableMove(false);
     setResetGame(!resetGame);
   };
+
+
+// CODEBLOCK ---------------------------------------------------------------------------------- BOARD INITIALIZE
 
   // NOTE -- DYNAMICALLY CREATE AN ARRAY OF BOARD POSITIONS
   const initializeBoard = () => {
@@ -97,6 +106,9 @@ const Board = () => {
 
     setBoardPositions(gameBoard);
   };
+
+
+// CODEBLOCK ---------------------------------------------------------------------------------- RENDER BOARD CELLS
 
   const renderBoardCells = () => {
     return boardPositions.map((position, i) => {
@@ -115,6 +127,8 @@ const Board = () => {
       );
     });
   };
+
+// CODEBLOCK ---------------------------------------------------------------------------------- JSX
 
   return (
     <BoardHolder>
