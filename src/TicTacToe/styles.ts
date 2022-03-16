@@ -61,17 +61,25 @@ export const Cell = styled.div<CellProps>`
   pointer-events: ${(props) => (props.disableMove ? `none` : `auto`)};
 `;
 
-export const BoardCircle = styled.div`
+interface BoardCircleProps {
+  isWinner: boolean;
+}
+
+export const BoardCircle = styled.div<BoardCircleProps>`
   height: 45px;
   width: 45px;
-  background: white;
+  background:  white;
   border-radius: 50%;
   transform: scale(0);
   animation-name: ${circleGrow};
   animation-duration: 0.4s;
-  animation-iteration-count: 1;
+  animation-iteration-count: ${(props) => props.isWinner ? `infinite` : `1`};
   animation-fill-mode: forwards;
 `;
+
+interface BoardCrossProps {
+  isWinner: boolean;
+}
 
 export const BoardCross = styled.div`
   height: 50px;
@@ -79,7 +87,7 @@ export const BoardCross = styled.div`
   position: relative;
 `;
 
-export const CrossTop = styled.div`
+export const CrossTop = styled.div<BoardCrossProps>`
   height: 6px;
   border-radius: 10px;
   width: 100%;
@@ -91,11 +99,11 @@ export const CrossTop = styled.div`
   transform: rotateZ(0deg);
   animation-name: ${rotateLeft};
   animation-duration: 0.4s;
-  animation-iteration-count: 1;
+  animation-iteration-count: ${(props) => props.isWinner ? `infinite` : `1`};
   animation-fill-mode: forwards;
 `;
 
-export const CrossBottom = styled.div`
+export const CrossBottom = styled.div<BoardCrossProps>`
   height: 6px;
   border-radius: 10px;
   width: 100%;
@@ -107,6 +115,6 @@ export const CrossBottom = styled.div`
   transform: rotateZ(0deg);
   animation-name: ${rotateRight};
   animation-duration: 0.4s;
-  animation-iteration-count: 1;
+  animation-iteration-count: ${(props) => props.isWinner ? `infinite` : `1`};
   animation-fill-mode: forwards;
 `;

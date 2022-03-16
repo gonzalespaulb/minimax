@@ -20,6 +20,7 @@ const Board = () => {
   const [currentPlayer, setCurrentPlayer] = useState(``);
   const [resetGame, setResetGame] = useState<boolean>(false);
   const [disableMove, setDisableMove] = useState<boolean>(false);
+  const [winCombination, setWinCombination] = useState<number[]>([]);
 
   useEffect(() => {
     initializeBoard();
@@ -49,6 +50,7 @@ const Board = () => {
         }
 
         if (matchCount === 3) {
+          setWinCombination(combo);
           console.log(`${currentOwnedBy} is the winner!!`);
           setDisableMove(true);
           return true;
@@ -87,6 +89,7 @@ const Board = () => {
 
   const resetBoard = () => {
     setDisableMove(false);
+    setWinCombination([]);
     setResetGame(!resetGame);
   };
 
@@ -122,6 +125,7 @@ const Board = () => {
           setCurrentPlayer={setCurrentPlayer}
           setDisableMove={setDisableMove}
           disableMove={disableMove}
+          winCombination={winCombination}
           index={i}
         />
       );
