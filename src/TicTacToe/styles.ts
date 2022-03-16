@@ -1,26 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-const move = keyframes`
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-`;
-
-const showSymbol = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
-
 const rotateRight = keyframes`
     from {
         transform: rotateZ(0deg);
@@ -80,21 +59,6 @@ export const Cell = styled.div<CellProps>`
   justify-content: center;
   align-items: center;
   pointer-events: ${(props) => (props.disableMove ? `none` : `auto`)};
-`;
-
-interface OwnerSymbolProps {
-  isOwned: null | string;
-}
-
-export const OwnerSymbol = styled.div<OwnerSymbolProps>`
-  height: 50px;
-  width: 50px;
-  background: black;
-  opacity: 0;
-  animation-name: ${(props) => (props.isOwned ? showSymbol : ``)};
-  animation-duration: 0.7s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 `;
 
 export const BoardCircle = styled.div`

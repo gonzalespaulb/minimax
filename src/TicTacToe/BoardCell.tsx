@@ -1,6 +1,5 @@
 import {
   Cell,
-  OwnerSymbol,
   BoardCross,
   CrossTop,
   CrossBottom,
