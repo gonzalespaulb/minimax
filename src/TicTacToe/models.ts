@@ -8,6 +8,7 @@ export interface BoardCellProps {
   position: IBoardPositions;
   boardPositions: IBoardPositions[];
   disableMove: boolean;
+  winCombination: number[];
   setBoardPositions: Function;
   checkForWinners: Function;
   setCurrentPlayer: Function;

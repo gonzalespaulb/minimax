@@ -17,6 +17,7 @@ const BoardCell: FC<BoardCellProps> = ({
   checkForWinners,
   setCurrentPlayer,
   setDisableMove,
+  winCombination,
   disableMove,
 }) => {
 
@@ -87,11 +88,11 @@ const BoardCell: FC<BoardCellProps> = ({
     if (position.ownedBy) {
       return position.ownedBy === players.USER ? (
         <BoardCross>
-          <CrossTop />
-          <CrossBottom />
+          <CrossTop isWinner={winCombination.includes(position.boardPosition)}/>
+          <CrossBottom isWinner={winCombination.includes(position.boardPosition)}/>
         </BoardCross>
       ) : (
-        <BoardCircle />
+        <BoardCircle isWinner={winCombination.includes(position.boardPosition)}/>
       );
     }
   };
