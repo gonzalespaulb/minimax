@@ -19,6 +19,9 @@ const BoardCell: FC<BoardCellProps> = ({
   setDisableMove,
   disableMove,
 }) => {
+
+// CODEBLOCK ---------------------------------------------------------------------------------- POSITION UPDATER
+
   const updatePositions = (player: string, chosenPosition: number) => {
     // NOTE -- CREATES A SHALLOW COPY OF  THE EXISTING BOARD
     const newBoard = boardPositions.slice();
@@ -35,6 +38,8 @@ const BoardCell: FC<BoardCellProps> = ({
       return true;
     }
   };
+
+// CODEBLOCK ---------------------------------------------------------------------------------- BOT MOVE
 
   const botMove = () => {
     if (!checkForWinners()) {
@@ -60,6 +65,8 @@ const BoardCell: FC<BoardCellProps> = ({
     }
   };
 
+// CODEBLOCK ---------------------------------------------------------------------------------- USER MOVE
+
   const userMove = () => {
     if (!checkForWinners()) {
       // NOTE -- INDEX DETERMINES WHICH CELL IS BEING CLICKED
@@ -74,6 +81,8 @@ const BoardCell: FC<BoardCellProps> = ({
     }
   };
 
+// CODEBLOCK ---------------------------------------------------------------------------------- CIRCLE OR CROSS
+
   const circleOrCross = () => {
     if (position.ownedBy) {
       return position.ownedBy === players.USER ? (
@@ -86,6 +95,8 @@ const BoardCell: FC<BoardCellProps> = ({
       );
     }
   };
+
+// CODEBLOCK ---------------------------------------------------------------------------------- JSX
 
   return (
     <Cell onClick={userMove} disableMove={disableMove}>
