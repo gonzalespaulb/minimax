@@ -1,4 +1,11 @@
-import { Cell } from "./styles";
+import {
+  Cell,
+  OwnerSymbol,
+  BoardCross,
+  CrossTop,
+  CrossBottom,
+  BoardCircle,
+} from "./styles";
 import { FC } from "react";
 import { BoardCellProps, IBoardPositions } from "./models";
 import { players } from "./enums";
@@ -33,6 +40,7 @@ const BoardCell: FC<BoardCellProps> = ({
   const botMove = () => {
     if (!checkForWinners()) {
       setDisableMove(false);
+
       // NOTE -- ONLY GIVES THE BOT ITEMS IN ARRAY THAT ARE NULL
       let movesLeft: IBoardPositions[] = [];
 
@@ -50,7 +58,7 @@ const BoardCell: FC<BoardCellProps> = ({
         updatePositions(players.BOT, movesLeft[botDesiredMove].boardPosition);
         setCurrentPlayer(players.USER);
       }
-    } 
+    }
   };
 
   const userMove = () => {
@@ -67,20 +75,23 @@ const BoardCell: FC<BoardCellProps> = ({
     }
   };
 
-  const whosCell = () => {
+  const circleOrCross = () => {
     if (position.ownedBy) {
-      return position.ownedBy === players.USER ? `orange` : `white`;
-    } else {
-      return `red`;
+      return position.ownedBy === players.USER ? (
+        <BoardCross>
+          <CrossTop />
+          <CrossBottom />
+        </BoardCross>
+      ) : (
+        <BoardCircle />
+      );
     }
   };
 
   return (
-    <Cell
-      onClick={userMove}
-      filled={whosCell()}
-      disableMove={disableMove}
-    ></Cell>
+    <Cell onClick={userMove} disableMove={disableMove}>
+      {circleOrCross()}
+    </Cell>
   );
 };
 
