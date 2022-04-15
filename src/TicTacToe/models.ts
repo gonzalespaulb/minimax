@@ -3,6 +3,14 @@ export interface IBoardPositions {
   ownedBy: null | string;
 }
 
+export interface IBoardProps {
+  disableMove: boolean;
+  winCombination: number[];
+  resetGame:boolean;
+  setWinCombination: Function;
+  setDisableMove: Function;
+}
+
 export interface BoardCellProps {
   index: number;
   position: IBoardPositions;

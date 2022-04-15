@@ -1,8 +1,11 @@
-import { BoardHolder, BoardGame } from "./styles";
+import { BoardGame } from "./styles";
 import BoardCell from "./BoardCell";
 import { useState, useEffect } from "react";
 import { players } from "./enums";
 import { IBoardPositions } from "./models";
+import { IBoardProps } from "./models";
+
+import { FC } from "react";
 
 const winningCombos = [
   [0, 1, 2],
@@ -15,12 +18,16 @@ const winningCombos = [
   [6, 7, 8],
 ];
 
-const Board = () => {
+const Board: FC<IBoardProps> = ({
+  disableMove,
+  winCombination,
+  resetGame,
+  setWinCombination,
+  setDisableMove,
+
+}) => {
   const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState(``);
-  const [resetGame, setResetGame] = useState<boolean>(false);
-  const [disableMove, setDisableMove] = useState<boolean>(false);
-  const [winCombination, setWinCombination] = useState<number[]>([]);
 
   useEffect(() => {
     initializeBoard();
@@ -85,14 +92,6 @@ const Board = () => {
     return allPositionsOwned;
   };
 
-// CODEBLOCK ---------------------------------------------------------------------------------- BOARD RESET
-
-  const resetBoard = () => {
-    setDisableMove(false);
-    setWinCombination([]);
-    setResetGame(!resetGame);
-  };
-
 
 // CODEBLOCK ---------------------------------------------------------------------------------- BOARD INITIALIZE
 
@@ -135,10 +134,7 @@ const Board = () => {
 // CODEBLOCK ---------------------------------------------------------------------------------- JSX
 
   return (
-    <BoardHolder>
       <BoardGame>{renderBoardCells()}</BoardGame>
-      <button onClick={resetBoard}>Reset Game</button>
-    </BoardHolder>
   );
 };
 
