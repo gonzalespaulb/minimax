@@ -24,7 +24,10 @@ const Board: FC<IBoardProps> = ({
   resetGame,
   setWinCombination,
   setDisableMove,
-
+  setBotScore,
+  setUserScore,
+  botScore,
+  userScore,
 }) => {
   const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
   const [currentPlayer, setCurrentPlayer] = useState(``);
@@ -60,6 +63,7 @@ const Board: FC<IBoardProps> = ({
           setWinCombination(combo);
           console.log(`${currentOwnedBy} is the winner!!`);
           setDisableMove(true);
+          currentOwnedBy === players.USER ? setUserScore(userScore + 1) : setBotScore(botScore + 1);
           return true;
         }
       }
@@ -69,6 +73,8 @@ const Board: FC<IBoardProps> = ({
     if (checkForTie()) {
       console.log(`its a tie`);
       setDisableMove(true);
+      setUserScore(userScore + 1);
+      setBotScore(botScore + 1);
       return true;
     }
 

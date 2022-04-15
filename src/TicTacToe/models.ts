@@ -9,6 +9,10 @@ export interface IBoardProps {
   resetGame:boolean;
   setWinCombination: Function;
   setDisableMove: Function;
+  botScore: number;
+  userScore: number;
+  setBotScore: Function;
+  setUserScore: Function;
 }
 
 export interface BoardCellProps {
