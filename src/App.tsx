@@ -1,12 +1,10 @@
 import './App.css';
-import Game from './game/Game';
-import Board from './TicTacToe/Board';
+import BoardHolder from './BoardHolder/BoardHolder';
 
 function App() {
   return (
     <div className="App">
-      {/* <Game/> */}
-      <Board/>
+      <BoardHolder/>
     </div>
   );
 }
