@@ -28,9 +28,9 @@ const Board: FC<IBoardProps> = ({
   setUserScore,
   botScore,
   userScore,
+  setCurrentPlayer,
 }) => {
   const [boardPositions, setBoardPositions] = useState<IBoardPositions[]>([]);
-  const [currentPlayer, setCurrentPlayer] = useState(``);
 
   useEffect(() => {
     initializeBoard();
