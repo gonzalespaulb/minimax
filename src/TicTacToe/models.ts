@@ -13,6 +13,7 @@ export interface IBoardProps {
   userScore: number;
   setBotScore: Function;
   setUserScore: Function;
+  setCurrentPlayer: Function;
 }
 
 export interface BoardCellProps {
