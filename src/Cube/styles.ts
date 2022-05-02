@@ -6,22 +6,22 @@ const rotateCube = keyframes `
     }
 
     100% {
-        transform: rotateX(360deg) rotateY(360deg);
+        transform: rotateX(-360deg) rotateY(360deg);
     }
 `;
 
 export const MainContainer = styled.div`
     background: pink;
     perspective: 1500px;
+    margin-bottom: 200px;
+    margin-top: 200px;
     `;
     
     export const BoxContainer = styled.div`
     transform-style: preserve-3d;
     position: relative;
-    // transform: rotateY(45deg) rotateX(45deg);
-    // transform: rotateY(45deg);
     animation-name: ${rotateCube};
-    animation-duration: 15s;
+    animation-duration: 7s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
@@ -31,8 +31,7 @@ const Box = styled.div`
     position: absolute;
     height: 200px;
     width: 200px;
-    border: 2px solid blue;
-    // opacity: 0.5;
+    border: 2px solid white;
 `;
 
 export const Front  = styled(Box)`

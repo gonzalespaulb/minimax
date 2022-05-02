@@ -39,14 +39,13 @@ export const BoardHolder = styled.div`
 `;
 
 export const BoardGame = styled.div`
-  height: 600px;
-  width: 600px;
+  height: 200px;
+  width: 200px;
   background: white;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 10px;
-  padding: 10px;
+  grid-gap: 2px;
 `;
 
 interface CellProps {

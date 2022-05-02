@@ -34,19 +34,19 @@ const BoardHolder = () => {
                     setCurrentPlayer={setCurrentPlayer}
             />
 
-            <ScoreBox>
-                <Score>
-                    <h1>Paul: {botScore}</h1>
-                    <Indicator  currentPlayer={currentPlayer} whosTurn={players.BOT} winCombination={winCombination}/>
-                </Score>
+            
+        <button onClick={resetBoard}>Reset Game</button> */}
+        <ScoreBox>
+            <Score>
+                <h1>Paul: {botScore}</h1>
+                <Indicator  currentPlayer={currentPlayer} whosTurn={players.BOT} winCombination={winCombination}/>
+            </Score>
 
-                <Score>
-                <h1>You: {userScore}</h1>
-                <Indicator  currentPlayer={currentPlayer} whosTurn={players.USER} winCombination={winCombination}/>
-                </Score>
-            </ScoreBox>
-
-            <button onClick={resetBoard}>Reset Game</button> */}
+            <Score>
+            <h1>You: {userScore}</h1>
+            <Indicator  currentPlayer={currentPlayer} whosTurn={players.USER} winCombination={winCombination}/>
+            </Score>
+        </ScoreBox>
         </MainContainer>
     )
 }
