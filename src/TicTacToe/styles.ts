@@ -118,3 +118,5 @@ export const CrossBottom = styled.div<BoardCrossProps>`
   animation-iteration-count: ${(props) => props.isWinner ? `infinite` : `1`};
   animation-fill-mode: forwards;
 `;
+
+

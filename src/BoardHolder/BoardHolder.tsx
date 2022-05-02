@@ -2,6 +2,7 @@ import Board from "../TicTacToe/Board";
 import { Indicator, MainContainer, Score, ScoreBox } from "./styles";
 import { useState } from "react";
 import { players } from "../TicTacToe/enums";
+import Cube from "../Cube/Cube";
 
 const BoardHolder = () => {
     const [disableMove, setDisableMove] = useState<boolean>(false);
@@ -19,7 +20,8 @@ const BoardHolder = () => {
       };
     return (
         <MainContainer>
-            <Board
+            <Cube></Cube>
+            {/* <Board
                     disableMove={disableMove}
                     setDisableMove={setDisableMove}
                     winCombination={winCombination}
@@ -44,7 +46,7 @@ const BoardHolder = () => {
                 </Score>
             </ScoreBox>
 
-            <button onClick={resetBoard}>Reset Game</button>
+            <button onClick={resetBoard}>Reset Game</button> */}
         </MainContainer>
     )
 }
