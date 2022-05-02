@@ -25,18 +25,6 @@ export const Score = styled.div`
   align-items: center;
 `;
 
-export const IndicatorBox = styled.div`
-  flex: 1;
-  margin-left: 20px;
-  margin-right: 20px;
-  background: white;
-  height: 2px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-`;
-
 interface IndicatorProps {
   currentPlayer: string;
   whosTurn: string;

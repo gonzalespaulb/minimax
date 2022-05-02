@@ -1,6 +1,6 @@
 import Board from "../TicTacToe/Board";
-import { Indicator, IndicatorBox, MainContainer, Score, ScoreBox } from "./styles";
-import { useState, useRef, useEffect } from "react";
+import { Indicator, MainContainer, Score, ScoreBox } from "./styles";
+import { useState } from "react";
 import { players } from "../TicTacToe/enums";
 
 const BoardHolder = () => {
