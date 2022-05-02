@@ -2,6 +2,7 @@ import Board from "../TicTacToe/Board";
 import { Indicator, MainContainer, Score, ScoreBox } from "./styles";
 import { useState } from "react";
 import { players } from "../TicTacToe/enums";
+import Cube from "../Cube/Cube";
 
 const BoardHolder = () => {
     const [disableMove, setDisableMove] = useState<boolean>(false);
@@ -19,7 +20,8 @@ const BoardHolder = () => {
       };
     return (
         <MainContainer>
-            <Board
+            <Cube></Cube>
+            {/* <Board
                     disableMove={disableMove}
                     setDisableMove={setDisableMove}
                     winCombination={winCombination}
@@ -32,19 +34,19 @@ const BoardHolder = () => {
                     setCurrentPlayer={setCurrentPlayer}
             />
 
-            <ScoreBox>
-                <Score>
-                    <h1>Paul: {botScore}</h1>
-                    <Indicator  currentPlayer={currentPlayer} whosTurn={players.BOT} winCombination={winCombination}/>
-                </Score>
+            
+        <button onClick={resetBoard}>Reset Game</button> */}
+        <ScoreBox>
+            <Score>
+                <h1>Paul: {botScore}</h1>
+                <Indicator  currentPlayer={currentPlayer} whosTurn={players.BOT} winCombination={winCombination}/>
+            </Score>
 
-                <Score>
-                <h1>You: {userScore}</h1>
-                <Indicator  currentPlayer={currentPlayer} whosTurn={players.USER} winCombination={winCombination}/>
-                </Score>
-            </ScoreBox>
-
-            <button onClick={resetBoard}>Reset Game</button>
+            <Score>
+            <h1>You: {userScore}</h1>
+            <Indicator  currentPlayer={currentPlayer} whosTurn={players.USER} winCombination={winCombination}/>
+            </Score>
+        </ScoreBox>
         </MainContainer>
     )
 }
